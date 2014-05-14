@@ -14,7 +14,16 @@ namespace Nwd.BackOffice.Impl
         {
             using( var ctx = new NwdMusikEntities() )
             {
-                return ctx.Albums.ToList();
+                return ctx.Albums.Include("Artist").ToList();
+            }
+        }
+
+        public void DeleteAlbum(int albumId)
+        {
+            using (var ctx = new NwdMusikEntities())
+            {
+                var albumToDelete = ctx.Albums.Single( a => a.Id == albumId );
+                ctx.Albums.Remove(albumToDelete);
             }
         }
 
@@ -126,7 +135,7 @@ namespace Nwd.BackOffice.Impl
                     album.CoverImagePath = Path.Combine( directory, coverFileName );
                 }
 
-                ctx.Entry( album ).State = System.Data.EntityState.Modified;
+                ctx.Entry( album ).State = System.Data.Entity.EntityState.Modified;
                 //foreach( var e in ctx.ChangeTracker.Entries() )
                 //{
                 //    e.State = System.Data.EntityState.Modified;
