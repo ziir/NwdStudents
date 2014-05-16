@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<Nwd.BackOffice.Model.Album>
 
 @{
-    ViewBag.Title = "ListeAlbums";
+    ViewBag.Title = "Liste Albums";
 }
 
-<h2>ListeAlbums</h2>
-
+<h2>
+    @ViewBag.Title
+</h2>
 <p>
+    <span class="glyphicon glyphicon-plus"></span>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<hr />
+
 <table class="table">
     <tr>
         <th>

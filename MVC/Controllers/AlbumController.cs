@@ -49,13 +49,39 @@ namespace MVC.Controllers
             return View();
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult Edit(int id)
+        {
+
+            ViewBag.Message = "Edition d'un album.";
+            ViewBag.AlbumEdited = false;
+            AlbumRepository ar = new AlbumRepository();
+
+            Album albumToEdit = ar.GetAlbumForEdit(id);
+
+            return View(albumToEdit);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Album model)
+        {
+            ViewBag.Message = "Edition d'un album.";
+
+            AlbumRepository ar = new AlbumRepository();
+
+            Album albumToEdit = ar.EditAlbum(this.Server, model);
+            
+            ViewBag.AlbumEdited = true;
+
+            return View();
+        }
+
+        public void Delete(int id)
         {
             AlbumRepository ar = new AlbumRepository();
 
             ar.DeleteAlbum(id);
 
-            return View();
+            this.Response.RedirectToRoute(new { controller = "Album", action = "ListeAlbums" });
         }
 	}
 }
