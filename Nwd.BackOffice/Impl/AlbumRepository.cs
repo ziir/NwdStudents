@@ -22,8 +22,9 @@ namespace Nwd.BackOffice.Impl
         {
             using (var ctx = new NwdMusikEntities())
             {
-                var albumToDelete = ctx.Albums.Single( a => a.Id == albumId );
+                var albumToDelete = ctx.Albums.First( a => a.Id == albumId );
                 ctx.Albums.Remove(albumToDelete);
+                ctx.SaveChanges();
             }
         }
 
